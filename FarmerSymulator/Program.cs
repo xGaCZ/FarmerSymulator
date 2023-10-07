@@ -1,16 +1,37 @@
 ﻿
+using FarmerSymulator;
 using FarmerSymulator.AnimalController;
+using System.Runtime.CompilerServices;
 
-Console.WriteLine( "sels");
-Random random = new Random();
+User player  = new User();
 
-
-
-for(int y = 0; y <= 200; y++)
+string firstName=Console.ReadLine();
+player.AddUser(firstName, 400);
+int x = int.Parse(Console.ReadLine());
+switch (x)
 {
-   
-    int x = random.Next(0,2);
 
-    Console.WriteLine($"aa {x} ");
+    case 1:
+
+        break;
 }
-string p = Console.ReadLine();
+Console.WriteLine("Wybierz numer zwierzaka któremu chcesz zmienić nazwę");
+
+for(int i = 0; i < player.animals.Count; i++)
+{
+    Animal animal = player.animals[i];
+    Console.WriteLine(i + ". " + animal.name);
+}
+
+int selected = int.Parse(Console.ReadLine());
+Console.WriteLine("Wpisz nową nazwe zwierzaka");
+string name = Console.ReadLine();
+player.animals[selected].name = name;
+
+Console.WriteLine("");
+Console.WriteLine("");
+foreach (Animal animal in player.animals)
+{
+    Console.WriteLine(animal.name);
+    
+}

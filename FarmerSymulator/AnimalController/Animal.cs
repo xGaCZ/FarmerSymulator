@@ -10,86 +10,36 @@ namespace FarmerSymulator.AnimalController
 {
     class Animal
     {
+        Random random = new Random();
         public string name { get; set; }
         public AnimalType animalType { get; set; }
-        public int liveTime { get; set; }
+        public int liveTime { get; set; } = 0;
         public int deadTime { get; set; }
         public double weight { get; set; }
-        public int eatLevel { get; set; }
-        public bool milk { get; set; } = false;
-        public bool egg { get; set; } = false;
-
-        public int deadTimeGenerator(int min, int max)
+        public int eatLevel { get; set; } = 3;
+        public bool milk { get; set; }
+        public bool egg { get; set; } 
+        public Animal(AnimalType animalType, bool milk, bool egg)
         {
-            Random rnd = new Random();
-            int num = rnd.Next(min, max); ;
-            return num;
+            this.animalType = animalType;
+            this.milk = milk;
+            this.egg = egg;
+            Create();
+            
         }
-        public double weightGenerator(int min, int max)
+        public void Create()
         {
-            Random rnd = new Random();
-            double x = rnd.NextDouble();
-            x += deadTimeGenerator(min, max);
-            return x;
-        }
-        public void AddRabbit()
-        {
-            Console.WriteLine("Podaj imię królika: ");
+            Console.WriteLine($"Podaj nazwe zwierzaka: ");
             name = Console.ReadLine();
-            animalType = AnimalType.Rabbit;
-            liveTime = 0;
-            deadTime = deadTimeGenerator(20, 29);
-            weight = weightGenerator(2, 4);
-            eatLevel = 3;
-
+            if (animalType == AnimalType.Rabbit)
+            {
+               deadTime = random.Next(20,25);
+               weight = random.Next(2,4);
+            }
         }
-        public void AddCow()
-        {
-            Console.WriteLine("Podaj imię Krowy: ");
-            name = Console.ReadLine();
-            animalType = AnimalType.Cow;
-            liveTime = 0;
-            deadTime = deadTimeGenerator(50, 59);
-            weight = weightGenerator(12, 19);
-            eatLevel = 3;
-            milk = true;
-        }
-        public void AddChicken()
-        {
-            Console.WriteLine("Podaj imię Kury: ");
-            name = Console.ReadLine();
-            animalType = AnimalType.Chicken;
-            liveTime = 0;
-            deadTime = deadTimeGenerator(17, 19);
-            weight = weightGenerator(1, 2);
-            eatLevel = 3;
-            egg = true;
-
-        }
-        public void AddBull()
-        {
-            Console.WriteLine("Podaj imię Byka: ");
-            name = Console.ReadLine();
-            animalType = AnimalType.Bull;
-            liveTime = 0;
-            deadTime = deadTimeGenerator(70, 80);
-            weight = weightGenerator(40, 45);
-            eatLevel = 3;
 
 
-        }
-        public void AddSheep()
-        {
-            Console.WriteLine("Podaj imię Owcy: ");
-            name = Console.ReadLine();
-            animalType = AnimalType.Sheep;
-            liveTime = 0;
-            deadTime = deadTimeGenerator(58, 64);
-            weight = weightGenerator(10, 15);
-            eatLevel = 3;
 
-
-        }
     }
 
 

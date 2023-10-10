@@ -37,6 +37,56 @@ do
                 Console.WriteLine($"Rozmiar Pola:{field.area} Nazwa pola: {field.fieldNumber} Gatunek ziemi:{field.fieldClass} Podłącznie do wody:{field.waterOnField}");
             }
             break;
+            case 5:
+            SystemMenu.ButcherMenu();
+            int x1 = int.Parse(Console.ReadLine());
+            if (x1==1)
+            {
+                foreach(Animal animal in player.animals)
+                {
+                    if (animal.animalType == AnimalType.Bull)
+                    {
+                        Console.WriteLine($"Nazwa byka:{animal.name} Waga{animal.weight} Wartość byka{animal.weight*5}PLN");
+                    }
+                }
+                
+            }
+            else if (x1 == 2)
+            {
+                foreach (Animal animal in player.animals)
+                {
+                    if (animal.animalType == AnimalType.Rabbit)
+                    {
+                        Console.WriteLine($"Nazwa królika:{animal.name} Waga{animal.weight} Wartość królika{animal.weight * 20}PLN");
+                    }
+                }
+
+            }
+            else if (x1 == 3)
+            {
+                foreach (Animal animal in player.animals)
+                {
+                    if (animal.animalType == AnimalType.Sheep)
+                    {
+                        Console.WriteLine($"Nazwa Owcy:{animal.name} Waga{animal.weight} Wartość Owcy{animal.weight * 10}PLN");
+                    }
+                }
+
+            }
+            Console.WriteLine("Podaj nazwę zwierzęcia którego chcesz sprzedać: ");
+            string nameSellAnimal=Console.ReadLine();
+            foreach (Animal type in player.animals.ToList())
+            {
+
+                if (nameSellAnimal == type.name)
+                {
+                    player.cash = player.cash + (type.weight*type.meetCost);
+                    player.animals.Remove(type);
+                }
+                else { break; }
+            }
+            break;
+     
             case 7:
             
             foreach (Animal type in player.animals)

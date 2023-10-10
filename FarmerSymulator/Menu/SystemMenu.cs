@@ -19,8 +19,12 @@ namespace FarmerSymulator.Menu
         }
         public static void MainMenu() 
         {
-            Console.WriteLine($"1-Zakup zwierząt\n2-Zakup ziemi\n3-Dane Zwierząt\n4-Dane o polach\n7-Koniec tury\n0-Wyjście ");
+            Console.WriteLine($"1-Zakup zwierząt\n2-Zakup ziemi\n3-Dane Zwierząt\n4-Dane o polach\n5-Masarnia\n7-Koniec tury\n0-Wyjście ");
 
+        }
+        public static void ButcherMenu()
+        {
+            Console.WriteLine($"Wybierz gatunek zwierzęcia do sprzedaży:\n1-Byk(5PLN za 1kg)\n2-Królik(20PLN za 1kg)\n3-Owca(10PLN za 1kg)");
         }
     }
 }

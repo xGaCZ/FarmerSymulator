@@ -15,10 +15,11 @@ namespace FarmerSymulator.AnimalController
         public AnimalType animalType { get; set; }
         public int liveTime { get; set; } = 0;
         public int deadTime { get; set; }
-        public double weight { get; set; }
+        public int weight { get; set; }
         public int eatLevel { get; set; } = 3;
         public bool milk { get; set; }
         public bool egg { get; set; } 
+        public int meetCost { get; set; }
         public Animal(AnimalType animalType, bool milk, bool egg)
         {
             this.animalType = animalType;
@@ -35,6 +36,7 @@ namespace FarmerSymulator.AnimalController
             {
                deadTime = random.Next(20,25);
                weight = random.Next(2,4);
+                meetCost = 20;
             }
             else if (animalType == AnimalType.Cow)
             {
@@ -52,11 +54,13 @@ namespace FarmerSymulator.AnimalController
             {
                 deadTime = random.Next(50, 51);
                 weight = random.Next(5, 8);
+                meetCost = 10;
             }
             else if (animalType == AnimalType.Bull)
             {
                 deadTime = random.Next(100, 125);
                 weight = random.Next(20, 40);
+                meetCost = 5;
             }
         }
 

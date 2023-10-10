@@ -38,41 +38,14 @@ do
             }
             break;
             case 5:
-            SystemMenu.ButcherMenu();
-            int x1 = int.Parse(Console.ReadLine());
-            if (x1==1)
-            {
-                foreach(Animal animal in player.animals)
-                {
-                    if (animal.animalType == AnimalType.Bull)
-                    {
-                        Console.WriteLine($"Nazwa byka:{animal.name} Waga{animal.weight} Wartość byka{animal.weight*5}PLN");
-                    }
+            
+                foreach(Animal animal in player.animals.FindAll(a=> a.animalType==AnimalType.Bull || a.animalType==AnimalType.Sheep || a.animalType == AnimalType.Rabbit))
+                {                  
+                 Console.WriteLine($"Gatunek zwierzęcia:{animal.animalType} Nazwa:{animal.name} Waga{animal.weight} Wartość:{animal.weight*animal.meetCost}PLN");                    
                 }
                 
-            }
-            else if (x1 == 2)
-            {
-                foreach (Animal animal in player.animals)
-                {
-                    if (animal.animalType == AnimalType.Rabbit)
-                    {
-                        Console.WriteLine($"Nazwa królika:{animal.name} Waga{animal.weight} Wartość królika{animal.weight * 20}PLN");
-                    }
-                }
+            
 
-            }
-            else if (x1 == 3)
-            {
-                foreach (Animal animal in player.animals)
-                {
-                    if (animal.animalType == AnimalType.Sheep)
-                    {
-                        Console.WriteLine($"Nazwa Owcy:{animal.name} Waga{animal.weight} Wartość Owcy{animal.weight * 10}PLN");
-                    }
-                }
-
-            }
             Console.WriteLine("Podaj nazwę zwierzęcia którego chcesz sprzedać: ");
             string nameSellAnimal=Console.ReadLine();
             foreach (Animal type in player.animals.ToList())
@@ -89,35 +62,24 @@ do
      
             case 7:
             
-            foreach (Animal type in player.animals)
+            foreach (Animal type in player.animals.ToList())
                 { 
                     if(type.animalType == AnimalType.Chicken && type.eatLevel >=3)
                     {
                         egg++;
                     }
-                }
-                foreach (Animal type in player.animals)
+                if (type.animalType == AnimalType.Cow && type.eatLevel >= 3)
                 {
-                    if (type.animalType == AnimalType.Cow && type.eatLevel >= 3)
-                    {
-                        milk++;
-                    }
+                    milk++;
                 }
-            foreach (Animal type in player.animals)
-            {
                 type.eatLevel--;
-                type.liveTime ++;
-            }
+                type.liveTime++;
 
-            foreach (Animal type in player.animals.ToList())
+                if (type.eatLevel == 0 || type.deadTime == type.liveTime)
                 {
-
-                    if (type.eatLevel == 0 || type.deadTime == type.liveTime)
-                    {
-                        player.animals.Remove(type);
-                    }
+                    player.animals.Remove(type);
                 }
-
+                }
             
             break;
 

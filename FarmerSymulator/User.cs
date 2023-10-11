@@ -1,9 +1,11 @@
 ﻿using FarmerSymulator.AnimalController;
 using FarmerSymulator.FieldController;
 using FarmerSymulator.Menu;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,52 +28,27 @@ namespace FarmerSymulator
         {
             SystemMenu.MenuField();
             int selectField = int.Parse(Console.ReadLine());
-            if(selectField == 1)
+            Console.WriteLine($"Podaj numer Pola(przykład:Małe41): ");
+            string nameFi = Console.ReadLine();
+            foreach (FieldSize fieldSize in Enum.GetValues(typeof(FieldSize)))
             {
-                if(cash >= 500)
+                if (selectField == (int)fieldSize)
                 {
-                    var fi = new Field(FieldSize.small);
-                    fields.Add(fi);
-                    cash -= 500;
-                    Console.WriteLine($"Kupiles ziemię, o numerze {fi.fieldNumber}\nDziałka ma rozmiar {fi.area}\nDziałka posiada Wode {fi.waterOnField} \nAktulany budżet {cash}  ");
+                    var fi = new Field(fieldSize, nameFi);
+                    if (fields.FindAll(a=>a.fieldNumber==nameFi).Count > 0)
+                    {
+                        Console.WriteLine("Inna działka ma taką nazwe");
+                        return;
+                    }
+                    else
+                    {
+                        fields.Add(fi);
+                        Console.WriteLine($"Kupiles działkę o powierzchni: {fi.area}, klasa ziemi {fi.fieldClass}, przyłaczenie do wody{fi.waterOnField}\nAktulany budżet {cash}  ");
+                    }
                 }
-                else { Console.WriteLine($"Brak środków zeby zakupić ziemię "); }
             }
-            else if (selectField == 2)
-            {
-                if (cash >=1000)
-                {
-                    var fi = new Field(FieldSize.medium);
-                    fields.Add(fi);
-                    cash -= 1000;
-                    Console.WriteLine($"Kupiles ziemię, o numerze {fi.fieldNumber}\nDziałka ma rozmiar {fi.area}\nDziałka posiada Wode {fi.waterOnField} \nAktulany budżet {cash}  ");
-                }
-                else { Console.WriteLine($"Brak środków zeby zakupić ziemię "); }
-            }
-            else if (selectField == 3)
-            {
-                if (cash >= 1500)
-                {
-                    var fi = new Field(FieldSize.large);
-                    fields.Add(fi);
-                    cash -= 1500;
-                    Console.WriteLine($"Kupiles ziemię, o numerze {fi.fieldNumber}\nDziałka ma rozmiar {fi.area}\nDziałka posiada Wode {fi.waterOnField} \nAktulany budżet {cash}  ");
-                }
-                else { Console.WriteLine($"Brak środków zeby zakupić ziemię "); }
-            }
-            else if (selectField == 4)
-            {
-                if (cash >= 2200)
-                {
-                    var fi = new Field(FieldSize.extraLarge);
-                    fields.Add(fi);
-                    cash -= 2200;
-                    Console.WriteLine($"Kupiles ziemię, o numerze {fi.fieldNumber}\nDziałka ma rozmiar {fi.area}\nDziałka posiada Wode {fi.waterOnField} \nAktulany budżet {cash}  ");
-                }
-                else { Console.WriteLine($"Brak środków zeby zakupić ziemię "); }
-            }
+
         }
-      
         public void BuyAnimal()
         {
             SystemMenu.MenuAnimal();
@@ -95,6 +72,7 @@ namespace FarmerSymulator
                     }
                     else
                     {
+           
                         animals.Add(b);                  
                         Console.WriteLine($"Kupiles {b.animalType}, o nazwie {b.name} \nAktulany budżet {cash}  ");
                     }

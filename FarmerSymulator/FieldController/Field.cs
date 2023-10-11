@@ -15,16 +15,16 @@ namespace FarmerSymulator.FieldController
         public string fieldNumber { get; set; }
         public FieldSize fieldSize { get; set; }
         Random rng = new Random();
-        public Field(FieldSize fieldSize)
+        public Field(FieldSize fieldSize, string fieldNumber)
         {
             this.fieldSize = fieldSize; 
+            this.fieldNumber = fieldNumber;
             Create();
         }
 
         public void Create()
         {
-            Console.WriteLine($"Podaj numer Pola(przykład:Małe41): ");
-            fieldNumber = Console.ReadLine();
+
             if(fieldSize == FieldSize.small)
             {
                 area =rng.Next(1,6);

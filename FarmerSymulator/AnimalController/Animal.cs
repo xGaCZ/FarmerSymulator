@@ -29,6 +29,7 @@ namespace FarmerSymulator.AnimalController
             this.egg = egg;
             this.name = name;
 
+
             Create();
             
         }

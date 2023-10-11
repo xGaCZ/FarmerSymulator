@@ -4,6 +4,7 @@ using FarmerSymulator.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,63 +76,34 @@ namespace FarmerSymulator
         {
             SystemMenu.MenuAnimal();
             int select = int.Parse(Console.ReadLine());
-            if(select == 1)
-            { if(cash >= 50)
-                { 
-                var anim = new Animal(AnimalType.Rabbit, false, false);
-                animals.Add(anim);
-                    cash-= 50;
+            Console.WriteLine("Podaj nazwe zwierzaka");
+            string name = Console.ReadLine();
 
-                Console.WriteLine($"Kupiles krolika, o nazwie {anim.name} \nAktulany budżet {cash}  ");
-                }
-            else { Console.WriteLine($"Brak środków zeby zakupić {AnimalType.Rabbit} "); }
-            }
-            else if (select == 2)
+
+            foreach (AnimalType animalType in Enum.GetValues(typeof(AnimalType)))
             {
-                if (cash >= 20)
+                
+                if (select ==(int)animalType)
                 {
-                    var anim = new Animal(AnimalType.Chicken, false, true);
-                    animals.Add(anim);
-                    cash -= 20;
-                    Console.WriteLine($"Kupiles kure, o nazwie {anim.name} \nAktulany budżet {cash}  ");
+                    bool isEgg = ((int)animalType == 2);
+                    bool isMilk = ((int)animalType == 3);
+                    var b = new Animal(animalType,isMilk , isEgg, name);
+                    if (animals.FindAll(a => a.name == name).Count > 0)
+                    {
+                        Console.WriteLine("takie zwierze już istanieje");
+                        return;
+                    }
+                    else
+                    {
+                        animals.Add(b);                  
+                        Console.WriteLine($"Kupiles {b.animalType}, o nazwie {b.name} \nAktulany budżet {cash}  ");
+                    }
                 }
-                else { Console.WriteLine($"Brak środków zeby zakupić {AnimalType.Chicken} "); }
-            }
-            else if (select == 3)
-            {      if (cash >= 200)
-                {
-                    var anim = new Animal(AnimalType.Cow, true, false);
-                    animals.Add(anim);
-                    cash -= 200;
-                    Console.WriteLine($"Kupiles krowe, o nazwie {anim.name} \nAktulany budżet {cash}  ");
-                }
-
-                else { Console.WriteLine($"Brak środków zeby zakupić {AnimalType.Cow} "); }
-            }
-            else if (select == 4)
-            {
-                if (cash >= 300)
-                {
-                    var anim = new Animal(AnimalType.Bull, false, false);
-                    animals.Add(anim);
-                    cash -= 300;
-                    Console.WriteLine($"Kupiles byka, o nazwie {anim.name} \nAktulany budżet {cash}  ");
-                }
-                else { Console.WriteLine($"Brak środków zeby zakupić {AnimalType.Bull} "); }
-            }
-            else if (select == 5)
-            {
-                if (cash >= 150)
-                {
-                    var anim = new Animal(AnimalType.Sheep, false, false);
-                    animals.Add(anim);
-                    cash -= 150;
-                    Console.WriteLine($"Kupiles owce, o nazwie {anim.name} \nAktulany budżet {cash}  ");
-                }
-                else { Console.WriteLine($"Brak środków zeby zakupić {AnimalType.Cow} "); }
             }
 
+           
 
+            
         }
 
     }

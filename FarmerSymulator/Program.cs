@@ -4,7 +4,6 @@ using FarmerSymulator.AnimalController;
 using FarmerSymulator.FieldController;
 using FarmerSymulator.Menu;
 using System.Runtime.CompilerServices;
-
 User player  = new User();
 bool exit = false;
 int egg = 0;
@@ -56,7 +55,7 @@ do
                     player.cash = player.cash + (type.weight*type.meetCost);
                     player.animals.Remove(type);
                 }
-                else { break; }
+                else { Console.WriteLine("Takie zwierze nie istnieje"); }
             }
             break;
      

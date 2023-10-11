@@ -8,10 +8,19 @@ namespace FarmerSymulator.AnimalController
 {
     enum AnimalType
     {
-        Rabbit,
-        Sheep,
-        Cow,
-        Bull,
-        Chicken
+        Rabbit=1,
+        Sheep=5,
+        Cow=3,
+        Bull=4,
+        Chicken=2
     }
+    enum AnimalPrice
+    {
+        Rabbit = 50,
+        Sheep = 150,
+        Cow = 200,
+        Bull = 400,
+        Chicken = 20
+    }
+
 }

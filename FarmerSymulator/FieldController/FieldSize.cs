@@ -8,6 +8,6 @@ namespace FarmerSymulator.FieldController
 {
     enum FieldSize
     {
-        small,medium,large,extraLarge
+        small=1,medium,large,extraLarge
     }
 }

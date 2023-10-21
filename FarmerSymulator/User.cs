@@ -16,8 +16,12 @@ namespace FarmerSymulator
     {
         public List<Animal> animals = new List<Animal>();
         public List<Field> fields = new List<Field>();
+       public List<Shop> shops = new List<Shop>();
         public string name {  get; set; }
         public int cash {  get; set; }
+        public int smallFood { get; set; }
+        public int mediumFood { get; set; }
+        public int BigFood { get; set; }
 
         public void AddUser(string firstName, int startCash)
         {
@@ -30,58 +34,49 @@ namespace FarmerSymulator
             int selectField = int.Parse(Console.ReadLine());
             Console.WriteLine($"Podaj numer Pola(przykład:Małe41): ");
             string nameFi = Console.ReadLine();
-            foreach (FieldSize fieldSize in Enum.GetValues(typeof(FieldSize)))
+            FieldSize[] animalTypes = (FieldSize[])Enum.GetValues(typeof(FieldSize));
+            FieldSize selectedFieldType = animalTypes[selectField - 1];
+            Field fie = new Field(selectedFieldType, nameFi);
+            if (cash >= fie.fieldCost)
             {
-                if (selectField == (int)fieldSize)
+                if (fields.FindAll(a => a.fieldNumber == nameFi).Count > 0)
                 {
-                    var fi = new Field(fieldSize, nameFi);
-                    if (fields.FindAll(a=>a.fieldNumber==nameFi).Count > 0)
-                    {
-                        Console.WriteLine("Inna działka ma taką nazwe");
-                        return;
-                    }
-                    else
-                    {
-                        fields.Add(fi);
-                        Console.WriteLine($"Kupiles działkę o powierzchni: {fi.area}, klasa ziemi {fi.fieldClass}, przyłaczenie do wody{fi.waterOnField}\nAktulany budżet {cash}  ");
-                    }
+                    Console.WriteLine("takie zwierze już istanieje");
+                    return;
                 }
+                cash -= fie.fieldCost;
+                fields.Add(fie);
+                Console.WriteLine($"Kupiles działkę w rozmiarze{fie.area}, o nazwie {fie.fieldNumber} \nAktulany budżet {cash}  ");
             }
+
 
         }
         public void BuyAnimal()
         {
+       
             SystemMenu.MenuAnimal();
             int select = int.Parse(Console.ReadLine());
+
             Console.WriteLine("Podaj nazwe zwierzaka");
             string name = Console.ReadLine();
 
 
-            foreach (AnimalType animalType in Enum.GetValues(typeof(AnimalType)))
+            AnimalType[] animalTypes = (AnimalType[])Enum.GetValues(typeof(AnimalType));
+            AnimalType selectedType = animalTypes[select-1];
+
+            Animal ani = new Animal(selectedType, name);
+            if (cash >= ani.animalCost)
             {
-                
-                if (select ==(int)animalType)
+                if (animals.FindAll(a => a.name == name).Count > 0)
                 {
-                    bool isEgg = ((int)animalType == 2);
-                    bool isMilk = ((int)animalType == 3);
-                    var b = new Animal(animalType,isMilk , isEgg, name);
-                    if (animals.FindAll(a => a.name == name).Count > 0)
-                    {
-                        Console.WriteLine("takie zwierze już istanieje");
-                        return;
-                    }
-                    else
-                    {
-           
-                        animals.Add(b);                  
-                        Console.WriteLine($"Kupiles {b.animalType}, o nazwie {b.name} \nAktulany budżet {cash}  ");
-                    }
+                    Console.WriteLine("takie zwierze już istanieje");
+                    return;
                 }
+                cash -= ani.animalCost;
+                animals.Add(ani);              
+                Console.WriteLine($"Kupiles {ani.animalType}, o nazwie {ani.name} \nAktulany budżet {cash}  ");
             }
 
-           
-
-            
         }
 
     }

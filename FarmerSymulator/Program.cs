@@ -5,6 +5,8 @@ using FarmerSymulator.FieldController;
 using FarmerSymulator.Menu;
 using System.Runtime.CompilerServices;
 User player  = new User();
+AnimalType animalTypes = new AnimalType();
+Shop shop = new Shop();
 bool exit = false;
 int egg = 0;
 int milk = 0;
@@ -21,7 +23,7 @@ do
     {
 
         case 1:
-            player.BuyAnimal();
+                    player.BuyAnimal();
             break;
         case 2:
             player.BuyField();
@@ -80,6 +82,123 @@ do
                 }
                 }
             
+            break;
+        case 8:
+            Console.WriteLine("Witamy w sklepie!!!\n1-Zakup Karmy\n2-Sprzedaż towaru");
+
+            int userChoose = int.Parse(Console.ReadLine());
+            if (userChoose == 1)
+            {
+                Console.WriteLine("1-Mała karma\n2-Średnia karma\n3-Duża karma\n");
+                int userChoose1 = int.Parse(Console.ReadLine());
+                if (userChoose1 == 1)
+                {
+                    int x1 = shop.FoodBuySmall(player.cash);
+                    player.cash -= (x1 * shop.bigFoodCost);
+                    player.smallFood += x1;
+            
+                }
+                else if (userChoose1 == 2)
+                {
+                    int x2 = shop.FoodBuyMedium(player.cash);
+                    player.cash -= (x2 * shop.bigFoodCost);
+                    player.smallFood += x2;
+                }
+                else if (userChoose1 == 3)
+                {
+                   int x3=shop.FoodBuyBig(player.cash);
+                    player.cash -= (x3 * shop.bigFoodCost);
+                    player.smallFood += x3;
+                }
+
+            }
+            else if (userChoose == 2)
+            {
+                Console.WriteLine($"1-Jajka (cena:{shop.eggCost})\n2-Mleko (cena:{shop.milkCost}) ");
+                int userChoose1 = int.Parse(Console.ReadLine());
+                if (userChoose1 == 1)
+                {
+                    Console.WriteLine($"Posiadasz: {egg} jaj");
+                    int v1=shop.EggSell(egg);
+                    player.cash += v1;
+                    Console.WriteLine($"Posiadasz jeszcze {egg} jajek i zarobiłeś{v1}");
+                }
+                else if (userChoose1 == 2)
+                {
+                    Console.WriteLine($"Posiadasz: {milk} mleka");
+                    int v2 = shop.MilkSell(milk);
+                    player.cash += v2;
+                    Console.WriteLine($"Posiadasz jeszcze {milk} mleka i zarobiłeś{v2}");
+                }
+
+            }
+           
+            break;
+
+        case 9:
+            Console.WriteLine($"Wybierz gatunek zwierzaka którego chcesz nakarmić\n1-królik\n2-kurczak\n3-krowa\n4-byk\n5-owca");
+            int chooseType = int.Parse(Console.ReadLine());
+            Console.WriteLine($"Wybierz typ Karmy\n1-mała (najedzenie +1 waga +1)\n2-średnia (najedzenie +2 waga +3)\n3-duże (najedzenie +3 waga +5)");
+            int chooseType3 = int.Parse(Console.ReadLine());
+
+            foreach (Animal type in player.animals.ToList())
+            {
+                int chooseType2 = (int)type.animalType;
+                if (chooseType3 == 1)
+                {
+                    if (chooseType == chooseType2 &&  chooseType >= 2)
+                    {
+
+                        type.eatLevel += 1;
+                        player.smallFood -= 1;
+
+                    }
+                    else
+                    {
+                        type.eatLevel += 1;
+                        player.smallFood -= 1;
+                        type.weight += 1;
+                    }
+                }
+                if (chooseType3 == 2)
+                {
+                    if (chooseType == chooseType2 && chooseType >= 2)
+                    {
+
+                        type.eatLevel += 2;
+                        player.mediumFood -= 1;
+
+                    }
+                    else
+                    {
+                        type.eatLevel += 2;
+                        player.mediumFood -= 1;
+                        type.weight += 3;
+                    }
+                }
+                if (chooseType3 == 3)
+                {
+                    if (chooseType == chooseType2 && chooseType >= 2)
+                    {
+
+                        type.eatLevel += 3;
+                        player.BigFood -= 1;
+
+                    }
+                    else
+                    {
+                        type.eatLevel +=3 ;
+                        player.smallFood -= 1;
+                        type.weight += 4;
+                    }
+                }
+
+            }
+
+
+
+
+
             break;
 
         case 0:

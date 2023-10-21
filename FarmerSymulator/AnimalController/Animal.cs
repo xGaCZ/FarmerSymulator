@@ -19,14 +19,13 @@ namespace FarmerSymulator.AnimalController
         public int deadTime { get; set; }
         public int weight { get; set; }
         public int eatLevel { get; set; } = 3;
-        public bool milk { get; set; }
-        public bool egg { get; set; } 
+        public bool milk { get; set; }=false;
+        public bool egg { get; set; } = false;
         public int meetCost { get; set; }
-        public Animal(AnimalType animalType, bool milk, bool egg,string name)
+
+        public Animal(AnimalType animalType,string name)
         {
             this.animalType = animalType;
-            this.milk = milk;
-            this.egg = egg;
             this.name = name;
 
 
